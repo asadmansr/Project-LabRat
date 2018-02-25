@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 
-
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -45,19 +44,18 @@ class LoginActivity : AppCompatActivity(){
         val emailStr = email.text.toString()
         val passwordStr = password.text.toString()
 
-
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
-            password.error = getString(R.string.error_invalid_password)
-        } else if (TextUtils.isEmpty(emailStr)) {
+        if (TextUtils.isEmpty(emailStr)) {
             email.error = getString(R.string.error_field_required)
-
+        } else if (TextUtils.isEmpty(passwordStr)) {
+            password.error = getString(R.string.error_field_required)
         } else if (!isEmailValid(emailStr)) {
             email.error = getString(R.string.error_invalid_email)
+        } else if (!isPasswordValid(passwordStr)) {
+            password.error = getString(R.string.error_invalid_password)
         } else {
             executeLogin()
         }
-
     }
 
     private fun isEmailValid(email: String): Boolean {
